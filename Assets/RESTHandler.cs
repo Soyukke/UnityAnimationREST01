@@ -12,6 +12,11 @@ MonoBehaviourを使うことで IEnumeratorを扱うStartCoroutineが使える�
 */
 public class RESTHandler : MonoBehaviour
 {
+
+    float val1 = 0.0f;
+    float val2 = 0.0f;
+
+    SkinnedMeshRenderer skinnedMeshRenderer;
     // REST GETを試す
     public IEnumerator Get(string url)
     {
@@ -48,12 +53,36 @@ public class RESTHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (Input.GetKey(KeyCode.Alpha1))
+        {
+            val1 += 1;
+        }
+        else if (Input.GetKey(KeyCode.Alpha2))
+        {
+            val2 += 1;
+        }
+        else if (Input.GetKey(KeyCode.Q))
+        {
+            val1 -= 1;
+        }
+        else if (Input.GetKey(KeyCode.W))
+        {
+            val2 -= 1;
+        }
+        else if (Input.GetKey(KeyCode.Escape))
+        {
+            val1 = 0;
+            val2 = 0;
+        }
+        // NOTE シェイプキーIndex 0のパラメータを変更する．rerenderされる．
+        skinnedMeshRenderer.SetBlendShapeWeight(0, val1);
+        // NOTE シェイプキーIndex 1のパラメータを変更する．rerenderされる．
+        skinnedMeshRenderer.SetBlendShapeWeight(1, val2);
     }
 }
