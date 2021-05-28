@@ -22,6 +22,8 @@ public class RESTHandler2 : MonoBehaviour
 
     float val1 = 0.0f;
     float val2 = 0.0f;
+    float val3 = 0.0f;
+    float val4 = 0.0f;
 
     SkinnedMeshRenderer skinnedMeshRenderer;
     // REST GETを試す
@@ -45,10 +47,31 @@ public class RESTHandler2 : MonoBehaviour
                 Debug.Log("success");
                 BodyStatus bs = JsonUtility.FromJson<BodyStatus>(request.downloadHandler.text);
                 // x
-                val1 = bs.accelLeft[0] / 4000 * 100;
-                val2 = bs.accelRight[0] / 4000 * 100;
-                Debug.Log(val1);
-                Debug.Log(val2);
+                float valLeft = bs.accelLeft[0] / 4000 * 100;
+                float valRight = bs.accelRight[0] / 4000 * 100;
+                Debug.Log(bs.accelLeft[0]);
+                if (0 < valLeft)
+                {
+                    val1 = valLeft;
+                    val2 = 0;
+                }
+                else
+                {
+                    val1 = 0;
+                    val2 = -valLeft;
+                }
+
+                if (0 < valRight)
+                {
+                    val3 = valRight;
+                    val4 = 0;
+                }
+                else
+                {
+                    val3 = 0;
+                    val4 = -valRight;
+
+                }
             }
             else
             {
@@ -64,7 +87,7 @@ public class RESTHandler2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Application.targetFrameRate = 15;
+        Application.targetFrameRate = 30;
         skinnedMeshRenderer = GetComponent<SkinnedMeshRenderer>();
     }
 
@@ -79,8 +102,10 @@ public class RESTHandler2 : MonoBehaviour
         StartCoroutine(Get("localhost:32000/testapi"));
         // NOTE シェイプキーIndex 0のパラメータを変更する．rerenderされる．
         skinnedMeshRenderer.SetBlendShapeWeight(0, val1);
-        // NOTE シェイプキーIndex 1のパラメータを変更する．rerenderされる．
         skinnedMeshRenderer.SetBlendShapeWeight(1, val2);
+        // NOTE シェイプキーIndex 1のパラメータを変更する．rerenderされる．
+        skinnedMeshRenderer.SetBlendShapeWeight(2, val3);
+        skinnedMeshRenderer.SetBlendShapeWeight(3, val4);
 
     }
 }

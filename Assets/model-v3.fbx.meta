@@ -2,13 +2,7 @@ fileFormatVersion: 2
 guid: 510b1b4c463bd4642bbd450e3da82cd6
 ModelImporter:
   serializedVersion: 20200
-  internalIDToNameTable:
-  - first:
-      74: 7143785154895616099
-    second: ARMS|ARMSAction
-  - first:
-      74: 2570678430569088214
-    second: ARMS|ARMSAction.001
+  internalIDToNameTable: []
   externalObjects: {}
   materials:
     materialImportMode: 2
